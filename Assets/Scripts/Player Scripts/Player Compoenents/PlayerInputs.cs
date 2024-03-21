@@ -4,19 +4,24 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerInputs : MonoBehaviour
 {
-    Weapon ItemA;
-    Weapon ItemB;
-    Elements type;
+    Player player;
+    [SerializeField] Weapon ItemA;
+    [SerializeField] Weapon ItemB;
+    [SerializeField] Elements type;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GetComponent<Player>();
+    }
+    private void OnMove(InputValue value) {
+        player.Anim.SetFloat("XInput", value.Get<Vector2>().x);
+        player.Anim.SetFloat("YInput", value.Get<Vector2>().y);
     }
     private void OnItemA() {
-        ItemA.Attack();
+        ItemA.UseItem(type);
     }
     private void OnItemB() {
-        ItemB.Attack();
+        ItemB.UseItem(type);
     }
     private void OnDodges() { 
     
@@ -28,10 +33,27 @@ public class PlayerInputs : MonoBehaviour
     }
     private void OnSwitchItemB() { 
     }
-    private void OnLockOn() { 
-    
+    private void OnLockOn(InputValue input) {
+        if (input.isPressed) {
+            player.LockedOn = true;
+        }
+        else {
+            player.LockedOn = false;
+        }
     }
     private void OnElementWheel() { 
     
+    }
+    void OnDRight() {
+        type = Elements.Electric;
+    }
+    void OnDLeft() {
+        type = Elements.Ice;
+    }
+    void OnDUp() {
+        type = Elements.Fire;
+    }
+    void OnDDown() {
+        type = Elements.Normal;
     }
 }
