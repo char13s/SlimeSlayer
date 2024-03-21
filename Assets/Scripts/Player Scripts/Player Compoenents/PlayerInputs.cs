@@ -6,6 +6,7 @@ public class PlayerInputs : MonoBehaviour
 {
     Weapon ItemA;
     Weapon ItemB;
+    Elements type;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,9 @@ public class PlayerInputs : MonoBehaviour
     private void OnSwitchItemB() { 
     }
     private void OnLockOn() { 
+    
+    }
+    private void OnElementWheel() { 
     
     }
 }
