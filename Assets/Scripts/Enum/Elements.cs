@@ -4,5 +4,5 @@ using UnityEngine;
 
 public enum Elements
 {
-    Normal,Dark,Light,Electric,Fire,Ice,Teleport,Time
+    Normal,Earth,Electric,Fire,Ice,Wind,Water,Light, Dark
 }
