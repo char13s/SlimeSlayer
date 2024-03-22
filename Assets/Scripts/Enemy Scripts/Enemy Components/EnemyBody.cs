@@ -6,6 +6,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyBody : MonoBehaviour
 {
+    [SerializeField] private Element type;
     [SerializeField] private Enemy body;
     [SerializeField] private Material bodyMat;
     [SerializeField] private Material attMat;
@@ -35,5 +36,8 @@ public class EnemyBody : MonoBehaviour
         YieldInstruction wait = new WaitForSeconds(1);
         yield return wait;
         mesh.material = bodyMat;
+    }
+    private void ReadElement() { 
+        
     }
 }

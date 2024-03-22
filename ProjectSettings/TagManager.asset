@@ -8,6 +8,7 @@ TagManager:
   - PlayerEyes
   - LockOnTarget
   - Camera
+  - Attack
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Water
   - UI
   - PostProcessor
-  - 
+  - Attacks
   - 
   - 
   - 

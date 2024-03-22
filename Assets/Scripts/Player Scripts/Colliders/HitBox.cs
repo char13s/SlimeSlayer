@@ -12,7 +12,7 @@ public class HitBox : MonoBehaviour
     private Player player;
 
     [SerializeField] private HitBoxType type;
-    [SerializeField] private Elements elementType;
+    [SerializeField] private Element elementType;
     [SerializeField] private GameObject effects;
     [SerializeField] private float additionalDamage;
     [SerializeField] private bool fireball;
@@ -38,6 +38,7 @@ public class HitBox : MonoBehaviour
     public HitBoxType Type { get => type; set => type = value; }
     public float AdditionalDamage { get => additionalDamage; set => additionalDamage = value; }
     public bool HasType { get => hasType; set => hasType = value; }
+    public Element ElementType { get => elementType; set => elementType = value; }
 
     // Start is called before the first frame update
     void Start() {
