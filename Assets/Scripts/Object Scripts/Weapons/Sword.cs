@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Sword : Weapon
 {
+    
     public override void Attack() {
         Player.GetPlayer().Anim.SetTrigger("Sword Attack");
     }

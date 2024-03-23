@@ -10,4 +10,5 @@ public class Element : MonoBehaviour
 
     public Elements Weakness { get => weakness; set => weakness = value; }
     public Elements Advantage { get => advantage; set => advantage = value; }
+    public Elements Type { get => type; set => type = value; }
 }

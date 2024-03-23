@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     private Animator anim;
     private CharacterController charCon;
     internal Stats stats = new Stats();
+    private PlayerLockOn plock;
+    private PlayerWeapons getWeapons;
 
     public static event UnityAction onPlayerDeath;
 
@@ -26,6 +28,8 @@ public class Player : MonoBehaviour
     public bool HasTarget { get => hasTarget; set => hasTarget = value; }
     public GameObject AimmingPoint { get => aimmingPoint; set => aimmingPoint = value; }
     public CharacterController CharCon { get => charCon; set => charCon = value; }
+    public PlayerLockOn Plock { get => plock; set => plock = value; }
+    public PlayerWeapons GetWeapons { get => getWeapons; set => getWeapons = value; }
 
     public static Player GetPlayer() => instance;
     private void Awake() {
@@ -37,6 +41,8 @@ public class Player : MonoBehaviour
         }
         charCon = GetComponent<CharacterController>();
         Anim = GetComponent<Animator>();
+        plock = GetComponent<PlayerLockOn>();
+        getWeapons = GetComponent<PlayerWeapons>();
     }
     // Start is called before the first frame update
     void Start()

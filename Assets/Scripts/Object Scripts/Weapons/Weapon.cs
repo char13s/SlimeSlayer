@@ -4,6 +4,14 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
+    [SerializeField] private string weaponName;
+    [SerializeField] private GameObject bodyRef;
+    private void OnEnable() {
+        bodyRef.SetActive(false);
+    }
+    private void OnDisable() {
+        bodyRef.SetActive(true);
+    }
     public abstract void Attack(); 
     public abstract void IceAttack();
     public abstract void ElectricAttack();

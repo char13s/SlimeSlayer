@@ -12,7 +12,8 @@ public class GuardBox : MonoBehaviour
         
     }
     private void OnTriggerEnter(Collider other) {
-        Instantiate(effects, transform.position, Quaternion.identity);
-        sendAmt.Invoke(-1);
+        if(effects!=null)
+            Instantiate(effects, transform.position, Quaternion.identity);
+        //sendAmt.Invoke(-1);
     }
 }
