@@ -2717,14 +2717,6 @@ namespace ThirdPersonCameraWithLockOn
 				fromLocation = optionalPlayerLineOfSightStart.position;
 			}
 			Vector3 toLocation = target.transform.position;
-			//if (optionalPlayerLineOfSightTargetTag != "")
-			//{
-			//	foreach (Transform child in target.transform)
-			//	{
-			//		if (child.tag == "LockOnTarget")
-			//			toLocation = child.transform.position;
-			//	}
-			//}
 
 			return CheckLineOfSight(fromLocation, toLocation, target);
 		}
@@ -3115,12 +3107,12 @@ namespace ThirdPersonCameraWithLockOn
 			GL.End();
 			//GL.PopMatrix();
 		}
-
+		public static event UnityAction<GameObject[]> sendThese;
 		//sorts lockOns by distance from follow
 		public GameObject[] SortLockOns() {
 
 			lockOnTargets = GameObject.FindGameObjectsWithTag(lockOnTargetsTag);
-
+			sendThese.Invoke(lockOnTargets);
 			if (lockOnTargets == null) {
 				Debug.LogError("Lock On targets NULL");
 				return null;

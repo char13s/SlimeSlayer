@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 public class PlayerLockOn : MonoBehaviour
 {
-    [SerializeField] private static List<Enemy> enemies = new List<Enemy>(16);
+    private List<Enemy> enemies = new List<Enemy>(16);
     private Plane[] planes;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private float radius;
@@ -31,7 +31,7 @@ public class PlayerLockOn : MonoBehaviour
     private int count;
     private Vector3 displacement;
     public float RotationSpeed { get => rotationSpeed; set { rotationSpeed = value; Mathf.Clamp(value, 5, 8); } }
-    public static List<Enemy> Enemies { get => enemies; set => enemies = value; }
+    public List<Enemy> Enemies { get => enemies; set => enemies = value; }
     public int T { get => t; set { t = Mathf.Clamp(value, 0, Enemies.Count); } }
     public Enemy EnemyTarget { get => enemyTarget; set { enemyTarget = value; if (value != null) { if (onTargetFound != null) onTargetFound(value); } } }
     public float RotateSpeed { get => rotateSpeed; set { rotateSpeed = value; Mathf.Clamp(value, 5, 8); } }
@@ -46,7 +46,7 @@ public class PlayerLockOn : MonoBehaviour
         //NewZend.findEnemy += firstLocked;
         //AttackStates.autoLocked += LockToClosest;
         //AttackStates.locked += LockToTarget;
-
+        ThirdPersonCameraWithLockOn.ThirdPersonCamera.sendThese += AddThese;
         //LockedOnState.autoLocked += LockToTarget;
         Player.onPlayerDeath += RemoveAllEnemies;
         ThirdPersonCameraWithLockOn.ThirdPersonCamera.sendTarget += EnemyLockedTo;
@@ -57,6 +57,7 @@ public class PlayerLockOn : MonoBehaviour
         //AttackStates.autoLocked -= LockToClosest;
         //AttackStates.locked -= LockToTarget;
         //LockedOnState.autoLocked -= LockToTarget;
+        ThirdPersonCameraWithLockOn.ThirdPersonCamera.sendThese -= AddThese;
         Player.onPlayerDeath -= RemoveAllEnemies;
         ThirdPersonCameraWithLockOn.ThirdPersonCamera.sendTarget -= EnemyLockedTo;
         RemoveAllEnemies();
@@ -75,9 +76,15 @@ public class PlayerLockOn : MonoBehaviour
     private void CheckDisplacement(Vector2 val) {
         displacement = val;
     }
+
+    private void AddThese(GameObject[]newlist) {
+        for (int i=0;i<newlist.Length;i++) {
+            if(newlist[i].GetComponent<Enemy>())
+                Enemies.Add(newlist[i].GetComponent<Enemy>());
+        }
+    }
     private void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<Enemy>() && !Enemies.Contains(other.GetComponent<Enemy>()))
-            Enemies.Add(other.GetComponent<Enemy>());
+
     }
     private void OnTriggerExit(Collider other) {
         //if (other.GetComponent<Enemy>())
@@ -97,7 +104,7 @@ public class PlayerLockOn : MonoBehaviour
             //ClosestEnemy = null;
             player.HasTarget = false;
         }
-        GetClosestEnemy();
+        //GetClosestEnemy();
         if (player.LockedOn) {
             //    //if (player.Attacking)
             //    print("player is locked");
@@ -128,18 +135,19 @@ public class PlayerLockOn : MonoBehaviour
         }
     }
     public void SwitchTarget(int val) {
-        T += val;
+        T ++;
         //GetClosestEnemy();
         // if (t >= enemies.Count && t > 0) {
         //     T--;
         // }
-        if (t == enemies.Count) {
+        if (T == enemies.Count) {
             T = 0;
         }
         //if (t < 0) {
         //    T = 0;
         //}
         //EnemyTarget = Enemies[T];
+        print(T);
         if (switchTarget != null) {
             switchTarget(Enemies[T].gameObject);
         }

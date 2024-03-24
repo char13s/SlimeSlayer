@@ -8,6 +8,7 @@ public class ParryBox : MonoBehaviour
     public static event UnityAction parry; 
     public static event UnityAction<int> parryEffect;
     public static event UnityAction parryVolume;
+    [SerializeField] private GameObject soundEffect;
     private Player player;
     // Start is called before the first frame update
     void Start()
@@ -21,10 +22,11 @@ public class ParryBox : MonoBehaviour
         if(other.GetComponent<EnemyHitBox>())
             player.Anim.SetTrigger("Redirect");
         //Enemy enemy=other.GetComponent<EnemyHitBox>().Enemy;
-        
+        if (soundEffect != null)
+            Instantiate(soundEffect, transform.position, Quaternion.identity);
 
         //Vector3 v3=enemy.transform.position-player.transform.position;
-        
+
         //player.transform.DOLookAt(new Vector3(0,v3.y,0),0.1f);
 
         //parryVolume.Invoke();

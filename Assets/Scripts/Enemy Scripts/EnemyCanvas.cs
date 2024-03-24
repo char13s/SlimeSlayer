@@ -8,6 +8,7 @@ public class EnemyCanvas : MonoBehaviour
     [SerializeField] Slider hpSlider;
     [SerializeField] Image fillRef;
     [SerializeField] Slider defSlider;
+    [SerializeField] private GameObject cam;
     GameManager player;
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class EnemyCanvas : MonoBehaviour
         FacePlayer();
     }
     private void FacePlayer() { 
-        Vector3 direction = Camera.main.transform.position - transform.position;
+        Vector3 direction = cam.transform.position - transform.position;
         Quaternion qTo;
         qTo = Quaternion.LookRotation(direction);
         transform.rotation = qTo;

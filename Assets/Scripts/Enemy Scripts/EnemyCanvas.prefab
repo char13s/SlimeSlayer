@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &865694895961950315
@@ -436,13 +436,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3160965015419878740}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa91238728ecdd74ca327551d1809736, type: 3}
+  m_Script: {fileID: 11500000, guid: b8cd3f708667f344c9506bebcf397231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 3160965015419878736}
-  hpSlider: {fileID: 3160965015887305424}
-  fillRef: {fileID: 3160965015655354309}
-  defSlider: {fileID: 1840045975294414628}
+  canvas: {fileID: 0}
+  hpSlider: {fileID: 0}
+  fillRef: {fileID: 0}
+  defSlider: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!1 &3160965015544041044
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,8 +22,9 @@ public class EnemyBody : MonoBehaviour
         if (hitbox=other.GetComponent<HitBox>()) {
             Attacked(other);
             if (!Body.Parry)
-                Instantiate(hitSound);
-            Body.CalculateDamage(hitbox.AdditionalDamage, hitbox.Type);
+                if(hitSound)
+                    Instantiate(hitSound);
+            Body.CalculateDamage(hitbox.AdditionalDamage, hitbox.Type,ReadElement(hitbox.ElementType));
             //if(!hitbox.HasType)
                 Body.OnHit();
         }
@@ -37,7 +38,15 @@ public class EnemyBody : MonoBehaviour
         yield return wait;
         mesh.material = bodyMat;
     }
-    private void ReadElement() { 
-        
+    private float ReadElement(Element element) {
+        if (type.Weakness == element.Type) {
+            return 2;
+        }
+        else if (type.Advantage == element.Type) {
+            return 0.5f;
+        }
+        else {
+            return 1;
+        }
     }
 }

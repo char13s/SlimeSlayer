@@ -14,6 +14,7 @@ public class HitBox : MonoBehaviour
     [SerializeField] private HitBoxType type;
     [SerializeField] private Element elementType;
     [SerializeField] private GameObject effects;
+    [SerializeField] private GameObject soundEffect;
     [SerializeField] private float additionalDamage;
     [SerializeField] private bool fireball;
     [SerializeField] private bool shakeOrNot;
@@ -54,7 +55,10 @@ public class HitBox : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         //if (!enemies.Contains(other.gameObject)) {
         if (effects != null)
-            Instantiate(effects, other.gameObject.transform);
+            Instantiate(effects, other.gameObject.transform); 
+        if (soundEffect != null)
+            Instantiate(soundEffect, other.gameObject.transform);
+
 
         if (other != null && other.GetComponent<EnemyBody>() && !enemies.Contains(other.gameObject)) {
             //weaponHit.Invoke();

@@ -18,9 +18,9 @@ TagManager:
   - UI
   - PostProcessor
   - Attacks
-  - 
-  - 
-  - 
+  - EnemyHitbox
+  - EnemyHurtBox
+  - PlayerHurtBox
   - 
   - 
   - 

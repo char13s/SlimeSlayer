@@ -186,7 +186,7 @@ public class Enemy : MonoBehaviour
         //Anim = Model.GetComponent<Animator>();
         //sound = GetComponent<AudioSource>();
         //StatusEffects.onStatusUpdate += StatusControl;
-
+        
         StatCalculation();
         state = EnemyAiStates.Idle;
         stats.staggercheck += StaggerCheck;
@@ -254,7 +254,7 @@ public class Enemy : MonoBehaviour
     public virtual void Start() {
         CharCon = GetComponent<CharacterController>();
         // distanceGround = GetComponent<Collider>().bounds.extents.y;
-
+        Zend = Player.GetPlayer();
         TotalCount = Enemies.Count;
     }
     public void TimeliningControl(bool val) {
@@ -570,14 +570,6 @@ public class Enemy : MonoBehaviour
         Anim.speed = 0;
     }
     #endregion
-
-
-
-    //private void OnTriggerStay(Collider other) {
-    //    if (other != null && !other.CompareTag("Enemy") && other.CompareTag("Attack")) {
-    //        Grounded = true;
-    //    }
-    //}
     #region status stuff
     private void SlowEnemy() {
 
@@ -612,13 +604,12 @@ public class Enemy : MonoBehaviour
         State = EnemyAiStates.Idle;
     }
     #endregion
-    public void CalculateDamage(float addition, HitBoxType dmgType) {
+    public void CalculateDamage(float addition, HitBoxType dmgType,float multiplier) {
         if (!dead) {
             float dmgModifier = 1;
-            dmgModifier = DmgMod(dmgModifier, dmgType);
+            dmgModifier = DmgMod(dmgModifier, dmgType)*multiplier;
             int dmg;
             if (Shield > 0) {
-                //dmg = (int)Mathf.Clamp(((Zend.stats.Attack * addition) - stats.Defense) * dmgModifier, 1, 999);
                 dmg = 0;
                 Shield -= (int)(Zend.stats.Attack);
                 //effect for shield getting hit
@@ -638,15 +629,10 @@ public class Enemy : MonoBehaviour
             //Hit = true;
 
             if (HealthLeft <= Health / 4 && !lowHealth) {
-                //StartCoroutine(StateControlCoroutine());
                 lowHealth = true;
             }
-
-            //OnHit();
         }
-
-    }//(Mathf.Max(1, (int)
-     //(Mathf.Pow(stats.Attack - 2.6f * zend.stats.Defense, 1.4f) / 30 + 3))) / n; }
+    }
     private float DmgMod(float dmg, HitBoxType dmgType) {
         switch (type) {
             case EnemyType.absorbent:

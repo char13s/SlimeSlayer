@@ -6,13 +6,17 @@ public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] private string weaponName;
     [SerializeField] private GameObject bodyRef;
+    [SerializeField] private GameObject swingSound;
     private void OnEnable() {
         bodyRef.SetActive(false);
     }
     private void OnDisable() {
         bodyRef.SetActive(true);
     }
-    public abstract void Attack(); 
+    public virtual void Attack() {
+        if (swingSound != null)
+            Instantiate(swingSound, transform.position, Quaternion.identity);
+    } 
     public abstract void IceAttack();
     public abstract void ElectricAttack();
     public abstract void FireAttack();
