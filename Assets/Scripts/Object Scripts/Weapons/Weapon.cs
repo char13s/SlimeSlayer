@@ -13,10 +13,11 @@ public abstract class Weapon : MonoBehaviour
     private void OnDisable() {
         bodyRef.SetActive(true);
     }
-    public virtual void Attack() {
-        if (swingSound != null)
+    public abstract void Attack();
+    public void PlaySound() { 
+     if (swingSound != null)
             Instantiate(swingSound, transform.position, Quaternion.identity);
-    } 
+    }
     public abstract void IceAttack();
     public abstract void ElectricAttack();
     public abstract void FireAttack();

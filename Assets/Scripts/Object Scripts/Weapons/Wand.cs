@@ -5,22 +5,22 @@ using UnityEngine;
 public class Wand : Weapon
 {
     public override void Attack() {
-        base.Attack();
+        PlaySound();
         Player.GetPlayer().Anim.SetTrigger("Wand Attack");
     }
 
     public override void ElectricAttack() {
-        base.Attack();
+        PlaySound();
         Player.GetPlayer().Anim.Play("Wand Electric Attack");
     }
 
     public override void FireAttack() {
-        base.Attack();
+        PlaySound();
         Player.GetPlayer().Anim.Play("Wand Fire Attack");
     }
 
     public override void IceAttack() {
-        base.Attack();
+        PlaySound();
         Player.GetPlayer().Anim.Play("Wand Ice Attack");
     }
 }

@@ -13,7 +13,7 @@ public class PlayerLockOn : MonoBehaviour
     private Camera cam;
     private Player player;
     private Enemy enemyTarget;
-    
+
     public static event UnityAction<bool> onLockOn;
     public static event UnityAction<Enemy> onTargetFound;
     public static event UnityAction<int> playBattleTheme;
@@ -77,10 +77,14 @@ public class PlayerLockOn : MonoBehaviour
         displacement = val;
     }
 
-    private void AddThese(GameObject[]newlist) {
-        for (int i=0;i<newlist.Length;i++) {
-            if(newlist[i].GetComponent<Enemy>())
-                Enemies.Add(newlist[i].GetComponent<Enemy>());
+    private void AddThese(GameObject[] newlist) {
+        for (int i = 0; i < newlist.Length; i++) {
+            Enemy temp;
+            if (temp = newlist[i].GetComponent<Enemy>()) {
+                if (!enemies.Contains(temp)) {
+                    Enemies.Add(newlist[i].GetComponent<Enemy>());
+                }
+            }
         }
     }
     private void OnTriggerEnter(Collider other) {
@@ -130,12 +134,12 @@ public class PlayerLockOn : MonoBehaviour
         //}
     }
     private void SwitchTarget() {
-        if (Enemies.Count > 0&&EnemyTarget&&EnemyTarget.Dead) {
-            SwitchTarget(-1);           
+        if (Enemies.Count > 0 && EnemyTarget && EnemyTarget.Dead) {
+            SwitchTarget(-1);
         }
     }
     public void SwitchTarget(int val) {
-        T ++;
+        T++;
         //GetClosestEnemy();
         // if (t >= enemies.Count && t > 0) {
         //     T--;
@@ -247,7 +251,7 @@ public class PlayerLockOn : MonoBehaviour
         return Vector3.MoveTowards(position, transform.position, .95f);
     }
     private void LockOn(GameObject target) {
-       // LockOff();
+        // LockOff();
         //EnemyLockedTo();
         if (target != null) {
             //target.LockedOn = true;
@@ -255,8 +259,8 @@ public class PlayerLockOn : MonoBehaviour
             Vector3 delta = target.transform.position - player.transform.position;
             delta.y = 0;
 
-                print("bro your def locked on rn/");
-                transform.rotation = Quaternion.LookRotation(delta, Vector3.up);
+            print("bro your def locked on rn/");
+            transform.rotation = Quaternion.LookRotation(delta, Vector3.up);
 
         }
     }

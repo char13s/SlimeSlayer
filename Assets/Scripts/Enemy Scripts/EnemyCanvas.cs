@@ -14,12 +14,13 @@ public class EnemyCanvas : MonoBehaviour
     void Start()
     {
         player = GameManager.GetManager();
+        cam = GameObject.FindGameObjectWithTag("Camera");
     }
     private void Update() {
         FacePlayer();
     }
     private void FacePlayer() { 
-        Vector3 direction = cam.transform.position - transform.position;
+        Vector3 direction =  transform.position- cam.transform.position;
         Quaternion qTo;
         qTo = Quaternion.LookRotation(direction);
         transform.rotation = qTo;

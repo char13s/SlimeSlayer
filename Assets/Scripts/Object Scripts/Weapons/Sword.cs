@@ -6,22 +6,22 @@ public class Sword : Weapon
 {
     
     public override void Attack() {
-        base.Attack();
+        PlaySound();
         Player.GetPlayer().Anim.SetTrigger("Sword Attack");
     }
 
     public override void ElectricAttack() {
-        base.Attack();
+        PlaySound();
         Player.GetPlayer().Anim.Play("Sword Electric Attack");
     }
 
     public override void FireAttack() {
-        base.Attack();
+        PlaySound();
         Player.GetPlayer().Anim.Play("Sword Fire Attack");
     }
 
     public override void IceAttack() {
-        base.Attack();
+        PlaySound();
         Player.GetPlayer().Anim.Play("Sword Ice Attack");
     }
 }
