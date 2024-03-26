@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     private EnemyAiStates state;
     public enum EnemyType { soft, hard, absorbent }
     [SerializeField] private EnemyType type;
+    private StatusEffects status;
     public event UnityAction onDefeat;
     public static event UnityAction<int> sendDmg;
     public enum EnemyAiStates { Null, Idle, Attacking, Chasing, ReturnToSpawn, Dead, Hit, UniqueState, UniqueState2, UniqueState3, UniqueState4, StatusEffect, Grabbed, Staggered };
@@ -54,7 +55,7 @@ public class Enemy : MonoBehaviour
     [Header("Effects Refs")]
     [SerializeField] private GameObject SpawninEffect;
     #region Script References
-    internal StatusEffects status = new StatusEffects();
+    //internal StatusEffects status = new StatusEffects();
     [SerializeField]
     internal StatsController stats = new StatsController();
     //private Player pc;
@@ -177,6 +178,8 @@ public class Enemy : MonoBehaviour
 
     public bool Timelining { get => timelining; set => timelining = value; }
     public int Shield { get => shield; set { shield = Mathf.Max(0, value); CheckShield(); } }
+
+    public StatusEffects Status { get => status; set { StatusControl(); status = value; } }
     #endregion
 
 
@@ -269,10 +272,7 @@ public class Enemy : MonoBehaviour
         States();
         if (Zend != null)
             Distance = Vector3.Distance(Zend.transform.position, transform.position);
-        if (status.Status != StatusEffects.Statuses.stunned && state != EnemyAiStates.Null) {
-            //StateSwitch();
-        }
-
+        
         //canvas.transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
     }
     public virtual void FixedUpdate() {
@@ -285,8 +285,8 @@ public class Enemy : MonoBehaviour
     }
     private void StatusControl() {
         if (!dead) {
-            switch (status.Status) {
-                case StatusEffects.Statuses.stunned:
+            switch (Status.Status) {
+                case StatusEffects.Statuses.stunned|StatusEffects.Statuses.frozen:
                     State = EnemyAiStates.StatusEffect;
                     if (!dead) {
                         Anim.speed = 0;
@@ -348,22 +348,22 @@ public class Enemy : MonoBehaviour
         Destroy(this);
     }
     public void Burned() {
-        if (status.Status == StatusEffects.Statuses.neutral) {
-            status.Status = StatusEffects.Statuses.burned;
+        if (Status.Status == StatusEffects.Statuses.neutral) {
+            Status.Status = StatusEffects.Statuses.burned;
             //Add a red glow material
             StartCoroutine(BurnEnemy());
         }
     }
     public void Froze() {
-        if (status.Status == StatusEffects.Statuses.neutral) {
-            status.Status = StatusEffects.Statuses.frozen;
+        //if (Status.Status == StatusEffects.Statuses.neutral) {
+            //Status.Status = StatusEffects.Statuses.frozen;
             //Add a baby blue material and ice particles
             StartCoroutine(FrozeEnemy());
-        }
+        //}
     }
     public void Pararlyzed() {
-        if (status.Status == StatusEffects.Statuses.neutral) {
-            status.Status = StatusEffects.Statuses.stunned;
+        if (Status.Status == StatusEffects.Statuses.neutral) {
+            Status.Status = StatusEffects.Statuses.stunned;
             //Add a yellow material and electricity particles
             StartCoroutine(StunEnemy());
         }
@@ -557,12 +557,15 @@ public class Enemy : MonoBehaviour
             //Particle come up
             HealthLeft -= (int)(Health * 0.05f);
         }
-        status.Status = StatusEffects.Statuses.neutral;
+        Status.Status = StatusEffects.Statuses.neutral;
     }
     IEnumerator FrozeEnemy() {
+        Anim.speed = 0;
         YieldInstruction wait = new WaitForSeconds(5);
         yield return wait;
-        Anim.speed = 0;
+        Anim.speed = 1;
+        GameObject frozeBox=gameObject.transform.Find("FreezeBox(Clone)").gameObject;
+        Destroy(frozeBox.gameObject);
     }
     IEnumerator StunEnemy() {
         YieldInstruction wait = new WaitForSeconds(1);

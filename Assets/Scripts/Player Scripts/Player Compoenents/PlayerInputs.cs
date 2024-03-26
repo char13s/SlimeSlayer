@@ -42,6 +42,7 @@ public class PlayerInputs : MonoBehaviour
         }
         ItemA = weapons[currentWeapon];
         ItemA.gameObject.SetActive(true);
+        ItemA.HandleEffects(type);
     }
     private void OnSwitchItemB() {
         player.Plock.SwitchTarget(1);
@@ -55,11 +56,12 @@ public class PlayerInputs : MonoBehaviour
         }
     }
     private void OnElementWheel() {
-        currentType++;
+        currentType++;      
         if (currentType == elements.Count) {
             currentType = 0;
         }
         type = elements[currentType];
+        ItemA.HandleEffects(type);
     }
     void OnDRight() {
         //type = Elements.Electric;
