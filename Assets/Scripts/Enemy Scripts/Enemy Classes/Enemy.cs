@@ -624,8 +624,8 @@ public class Enemy : MonoBehaviour
             HealthLeft -= dmg;
             //HitText hitSplat= new HitText();
             //Debug.Log(hitSplat.Text.ToString());
-           // hitSplat.GetComponent<HitText>().Text = dmg.ToString();
-            //Instantiate(hitSplat, transform.position, Quaternion.identity);
+            hitSplat.GetComponent<HitText>().Text = dmg.ToString();
+            Instantiate(hitSplat, transform.position+new Vector3(0,1,0), Quaternion.identity);
             //Hit = true;
 
             if (HealthLeft <= Health / 4 && !lowHealth) {
