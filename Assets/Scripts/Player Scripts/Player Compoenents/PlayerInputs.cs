@@ -2,21 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 public class PlayerInputs : MonoBehaviour
 {
     Player player;
-    [SerializeField] Weapon ItemA;
-     Element type;
+    Weapon ItemA;
+    Element type;
     [SerializeField] private List<Element> elements;
     [SerializeField] private List<Weapon> weapons;
     byte currentType;
     byte currentWeapon;
+
+    public static event UnityAction<Element> sendElement;
+    public static event UnityAction<string> sendWeapon;
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Player>();
         ItemA = weapons[currentWeapon];ItemA.gameObject.SetActive(true);
         type = elements[0];
+        if (sendElement != null) {
+            sendElement(type);
+        }
     }
     private void OnMove(InputValue value) {
         player.Anim.SetFloat("XInput", value.Get<Vector2>().x);
@@ -28,8 +35,8 @@ public class PlayerInputs : MonoBehaviour
     private void OnItemB() {
         player.Anim.Play("Guard");
     }
-    private void OnDodges() { 
-    
+    private void OnDodges() {
+        player.Anim.SetTrigger("Jump");
     }
     private void OnInteract() { 
     
@@ -43,6 +50,10 @@ public class PlayerInputs : MonoBehaviour
         ItemA = weapons[currentWeapon];
         ItemA.gameObject.SetActive(true);
         ItemA.HandleEffects(type);
+        if (sendWeapon != null) {
+            sendWeapon(ItemA.name);
+        }
+        
     }
     private void OnSwitchItemB() {
         player.Plock.SwitchTarget(1);
@@ -62,6 +73,9 @@ public class PlayerInputs : MonoBehaviour
         }
         type = elements[currentType];
         ItemA.HandleEffects(type);
+        if (sendElement != null) {
+            sendElement(type);
+        }
     }
     void OnDRight() {
         //type = Elements.Electric;

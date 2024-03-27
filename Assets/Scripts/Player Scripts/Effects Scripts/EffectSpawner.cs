@@ -7,6 +7,6 @@ public class EffectSpawner : MonoBehaviour
     [SerializeField] private GameObject effect;
     // Start is called before the first frame update
     private void OnEnable() {
-        Instantiate(effect, transform.position, effect.transform.rotation);
+        Instantiate(effect, transform.position, transform.rotation);
     }
 }

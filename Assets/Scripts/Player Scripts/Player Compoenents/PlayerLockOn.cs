@@ -76,7 +76,6 @@ public class PlayerLockOn : MonoBehaviour
     private void CheckDisplacement(Vector2 val) {
         displacement = val;
     }
-
     private void AddThese(GameObject[] newlist) {
         for (int i = 0; i < newlist.Length; i++) {
             Enemy temp;
