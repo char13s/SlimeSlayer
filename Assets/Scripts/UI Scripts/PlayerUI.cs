@@ -17,7 +17,7 @@ public class PlayerUI : MonoBehaviour
         PlayerInputs.sendElement += PickAnElement;
         PlayerInputs.sendWeapon += PickAWeapon;
         Stats.onHealthChange += SetHealthLeft;
-        Stats.sendMp += SetMpBar;
+        //Stats.sendMp += SetMpBar;
     }
     private void OnDisable() {
         PlayerInputs.sendElement -= PickAnElement;
@@ -27,10 +27,10 @@ public class PlayerUI : MonoBehaviour
     }
     void Start()
     {
-        healthBar.maxValue = Player.GetPlayer().stats.Health;
-        healthBar.value = Player.GetPlayer().stats.HealthLeft;
-        mpBar.maxValue= Player.GetPlayer().stats.MP;
-        mpBar.value = Player.GetPlayer().stats.MPLeft;
+        //healthBar.maxValue = Player.GetPlayer().stats.Health;
+        //healthBar.value = Player.GetPlayer().stats.HealthLeft;
+        //mpBar.maxValue= Player.GetPlayer().stats.MP;
+        //mpBar.value = Player.GetPlayer().stats.MPLeft;
     }
     private void SetHealthLeft() { 
         healthBar.value= Player.GetPlayer().stats.HealthLeft;

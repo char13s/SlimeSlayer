@@ -46,6 +46,7 @@ public class Enemy : MonoBehaviour
     [Header("Object Refs")]
     [SerializeField] private GameObject hitSplat;
     [SerializeField] private GameObject shieldObj;
+    [SerializeField] private GameObject cam;
     private int stagger;
 
     // [SerializeField] private GameObject model;
@@ -272,8 +273,10 @@ public class Enemy : MonoBehaviour
         States();
         if (Zend != null)
             Distance = Vector3.Distance(Zend.transform.position, transform.position);
-        
-        //canvas.transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+        Vector3 delta = transform.position - Zend.transform.position;
+        delta.y = 0;
+        transform.rotation = Quaternion.LookRotation(delta);
+        canvas.transform.rotation = Quaternion.LookRotation(transform.position - cam.transform.position);
     }
     public virtual void FixedUpdate() {
 

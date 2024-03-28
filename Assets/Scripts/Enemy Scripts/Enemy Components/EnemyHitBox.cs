@@ -32,9 +32,13 @@ public class EnemyHitBox : MonoBehaviour
             if (Player.GetPlayer().Blocking) {
 
             }
-            else {
+            else if (!isProjectile) {
                 Enemy.CalculateAttack(extraDmg);
-            } 
+            }
+            else { 
+                Player.GetPlayer().stats.HealthLeft -= extraDmg;
+            }
+            
         }
         if (other.GetComponent<ParryBox>()&&!isProjectile) {
             Enemy.Parry=true;
