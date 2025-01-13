@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 1889007992792818538, guid: 7ab642a868708b6429d3acfa3f54e4c5, type: 3}
+  caster: {fileID: 0}
 --- !u!1 &8318090921550613839
 GameObject:
   m_ObjectHideFlags: 0
