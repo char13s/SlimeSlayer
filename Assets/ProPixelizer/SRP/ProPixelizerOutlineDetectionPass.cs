@@ -104,6 +104,7 @@ namespace ProPixelizer
             outlineDescriptor.graphicsFormat = UnityEngine.Experimental.Rendering.GraphicsFormat.R8G8B8A8_UNorm;
 #if URP_13
             var depthDescriptor = outlineDescriptor;
+            depthDescriptor.colorFormat = RenderTextureFormat.Depth;
             outlineDescriptor.depthBufferBits = 0;
             RenderingUtils.ReAllocateIfNeeded(ref _OutlineObjectBuffer, outlineDescriptor, name: PROPIXELIZER_OBJECT_BUFFER);
             RenderingUtils.ReAllocateIfNeeded(ref _OutlineObjectBuffer_Depth, depthDescriptor, name: PROPIXELIZER_OBJECT_BUFFER);

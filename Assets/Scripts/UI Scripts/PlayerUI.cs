@@ -27,8 +27,8 @@ public class PlayerUI : MonoBehaviour
     }
     void Start()
     {
-        //healthBar.maxValue = Player.GetPlayer().stats.Health;
-        //healthBar.value = Player.GetPlayer().stats.HealthLeft;
+        healthBar.maxValue = Player.GetPlayer().stats.Health;
+        healthBar.value = Player.GetPlayer().stats.HealthLeft;
         //mpBar.maxValue= Player.GetPlayer().stats.MP;
         //mpBar.value = Player.GetPlayer().stats.MPLeft;
     }

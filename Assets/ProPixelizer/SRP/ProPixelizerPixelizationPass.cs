@@ -15,7 +15,10 @@ namespace ProPixelizer
         public PixelizationPass(ShaderResources shaders, OutlineDetectionPass outlines)
         {
 #if UNITY_2022_1_OR_NEWER
-            renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
+            renderPassEvent = RenderPassEvent.AfterRenderingOpaques - 1;
+            // -1 is required so that we can perform modifications to the depth buffer.
+            // If SSAO is used, the SSAO will force a Depth Copy to appear _just before_ AfterRenderOpaques,
+            // due to the ConfigureInput(Depth) in the SSAO passes. We use -1 to insert _just before_ then.
 #else
             renderPassEvent = RenderPassEvent.BeforeRenderingTransparents;
 #endif
@@ -172,7 +175,7 @@ namespace ProPixelizer
             pixelizationMapDescriptor.depthBufferBits = 0;
 
             #if URP_13
-                RenderingUtils.ReAllocateIfNeeded(ref _PixelatedScene_Depth, cameraTextureDescriptor, name: "ProP_PixelatedScene");
+                RenderingUtils.ReAllocateIfNeeded(ref _PixelatedScene_Depth, depthDescriptor, name: "ProP_PixelatedScene");
                 cameraTextureDescriptor.depthBufferBits = 0;
                 RenderingUtils.ReAllocateIfNeeded(ref _PixelatedScene, cameraTextureDescriptor, name: "ProP_PixelatedScene");
                 RenderingUtils.ReAllocateIfNeeded(ref _OriginalScene, cameraTextureDescriptor, name: "ProP_OriginalScene");
